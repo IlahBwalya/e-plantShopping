@@ -1,28 +1,36 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
-function Navbar() {
-  const cartItems = useSelector((state) => state.cart.cartItems);
-
-  const totalItems = cartItems.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
-
+function Navbar({ setShowProducts, setShowCart }) {
   return (
-    <nav style={{ padding: "15px", background: "green", color: "white" }}>
-      <Link to="/" style={{ marginRight: "20px", color: "white" }}>
-        Products
-      </Link>
+    <nav style={{
+      display: "flex",
+      justifyContent: "space-between",
+      padding: "15px",
+      backgroundColor: "green",
+      color: "white"
+    }}>
+      <h2 style={{ cursor: "pointer" }} onClick={() => {
+        setShowProducts(false);
+        setShowCart(false);
+      }}>
+        Paradise Nursery
+      </h2>
 
-      <Link to="/about" style={{ marginRight: "20px", color: "white" }}>
-        About
-      </Link>
+      <div>
+        <button onClick={() => {
+          setShowProducts(true);
+          setShowCart(false);
+        }}>
+          Products
+        </button>
 
-      <Link to="/cart" style={{ color: "white" }}>
-        Cart ({totalItems})
-      </Link>
+        <button onClick={() => {
+          setShowProducts(false);
+          setShowCart(true);
+        }}>
+          Cart
+        </button>
+      </div>
     </nav>
   );
 }

@@ -1,30 +1,25 @@
 import React, { useState } from "react";
+import Navbar from "./components/Navbar";
 import ProductList from "./pages/ProductList";
+import CartItem from "./pages/CartItem";
 import AboutUs from "./pages/AboutUs";
 
 function App() {
   const [showProducts, setShowProducts] = useState(false);
-
-  const handleGetStarted = () => {
-    setShowProducts(true);
-  };
+  const [showCart, setShowCart] = useState(false);
 
   return (
     <div>
-      {!showProducts ? (
-        <div style={{ textAlign: "center", padding: "50px" }}>
-          <h1>Paradise Nursery</h1>
-          <p>Your one-stop shop for beautiful houseplants.</p>
+      <Navbar
+        setShowProducts={setShowProducts}
+        setShowCart={setShowCart}
+      />
 
-          <button onClick={handleGetStarted}>
-            Get Started
-          </button>
+      {!showProducts && !showCart && <AboutUs />}
 
-          <AboutUs />
-        </div>
-      ) : (
-        <ProductList />
-      )}
+      {showProducts && <ProductList />}
+
+      {showCart && <CartItem />}
     </div>
   );
 }
